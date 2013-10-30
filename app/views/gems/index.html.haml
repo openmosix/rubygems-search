@@ -1,0 +1,19 @@
+.content
+  .panel.panel-default
+    .panel-body
+      %table.table.table-striped
+        %tr
+          %td Name
+          %td Version
+          %td Authors
+        - @gems.each do |gem|
+          %tr
+            %td
+              %b=link_to gem.name, gem_url(gem)
+            %td
+              =gem.version
+            %td
+              =gem.authors
+        %tr
+          %td{colspan: 2}
+            = paginate @gems

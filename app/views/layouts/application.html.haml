@@ -10,6 +10,7 @@
         = yield(:head)
   %body{:class => "#{controller_name} #{action_name}"}
     %section.container
+      = render 'layouts/navigation'
       #main{:role => "main"}
         .container
           .content

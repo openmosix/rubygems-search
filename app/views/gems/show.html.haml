@@ -1,0 +1,157 @@
+.content
+  .panel.panel-default
+    .panel-body
+      %table.table.table-striped
+        %tr
+          %td.col-md-2 
+            %b Name
+          %td=@gem.name
+
+        %tr
+          %td
+            %b Version
+          %td=@gem.version
+
+        %tr
+          %td
+            %b Downloads 
+          %td=@gem.downloads
+
+        %tr
+          %td
+            %b Version Downloads
+          %td=@gem.version_downloads
+
+        %tr
+          %td
+            %b Platform
+          %td=@gem.platform
+
+        %tr
+          %td 
+            %b Authors
+          %td=@gem.authors
+          
+        %tr
+          %td
+            %b Info
+          %td=@gem.info
+        
+        %tr
+          %td
+            %b Licenses 
+          %td=@gem.licenses.try(:join, ',')
+
+        %tr
+          %td
+            %b Project url 
+          %td=link_to @gem.project_uri, @gem.project_uri
+
+        %tr
+          %td
+            %b Gem url 
+          %td=link_to @gem.gem_uri, @gem.gem_uri
+          
+        %tr
+          %td
+            %b Homepage url 
+          %td=link_to @gem.homepage_uri, @gem.homepage_uri
+
+        %tr
+          %td
+            %b Wiki url 
+          %td=link_to @gem.wiki_uri, @gem.wiki_uri
+                            
+        %tr
+          %td
+            %b Documentation url 
+          %td=link_to @gem.documentation_uri, @gem.documentation_uri
+  
+        %tr
+          %td
+            %b Mailing list url 
+          %td=link_to @gem.mailing_list_uri, @gem.mailing_list_uri
+  
+        %tr
+          %td
+            %b Source code url 
+          %td=link_to @gem.source_code_uri, @gem.source_code_uri 
+
+        %tr
+          %td
+            %b Bug tracker url 
+          %td=link_to @gem.bug_tracker_uri, @gem.bug_tracker_uri
+
+        %tr
+          %td
+            %b Owners
+          %td
+            -if @gem.owners
+              =@gem.owners.map{|owner| owner.email }.join(', ')
+      
+      %table.table.table-striped
+        %tr
+          %th.col-md-2 Runtime Dependencies
+          %th
+        -@gem.dependencies.runtime.each do |runtime|
+          %tr
+            %td=runtime.name
+            %td=runtime.requirements
+            
+      %table.table.table-striped
+        %tr
+          %th.col-md-2 Dev Dependencies
+          %th
+        -@gem.dependencies.development.each do |dev|
+          %tr
+            %td=dev.name
+            %td=dev.requirements
+            
+      -if @gem.versions     
+        -@gem.versions.each do |version|
+          
+          
+          %table.table.table-striped
+            %tr
+              %td{colspan: 2}
+                %b Version #{version.number}
+            
+            %tr 
+              %td.col-md-3
+                %b Built at:
+              %td=version.built_at
+          
+            %tr
+              %td 
+                %b Number of downloads
+              %td=version.downloads_count
+              
+            %tr
+              %td 
+                %b Description
+              %td=version.description
+
+            %tr
+              %td 
+                %b Summary
+              %td=version.summary
+              
+            %tr
+              %td 
+                %b Platform
+              %td=version.platform
+              
+            %tr
+              %td 
+                %b Prerelease
+              %td=version.prerelease
+              
+            %tr
+              %td 
+                %b Licenses
+              %td=version.licenses.try(:join, ', ')
+          
+            %tr
+              %td 
+                %b Authors
+              %td=version.authors

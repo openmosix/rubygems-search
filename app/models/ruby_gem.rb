@@ -21,10 +21,9 @@ class RubyGem
   field :bug_tracker_uri, type: String
   
   embeds_one :dependencies, store_as: 'dependencies', class_name: 'Requirement'
-# field :versions 
   embeds_many :versions
   embeds_many :owners
   
-  index({ name: 1 }, { unique: true, background: true })
+  index({ name: 1 }, { unique: true, background: true, drop_dups: true })
   
 end
