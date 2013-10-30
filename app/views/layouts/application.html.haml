@@ -1,0 +1,32 @@
+!!!
+%html{lang:'en'}
+  %head
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
+      %title= content_for?(:title) ? yield(:title) : "RubyGems Search"
+      %meta{name:"viewport", content:"width=device-width, initial-scale=1.0"}
+      %meta{:content => content_for?(:description) ? yield(:description) : "RubyGems Search", :name => "description"}
+        = stylesheet_link_tag "application", :media => "all"
+        = csrf_meta_tags
+        = yield(:head)
+  %body{:class => "#{controller_name} #{action_name}"}
+    %section.container
+      #main{:role => "main"}
+        .container
+          .content
+            .row
+              .span12
+                = render 'layouts/messages'
+                = yield
+            %footer
+              %hr
+                RubyGems Search - © 2013
+      / ! end of .container
+    / ! end of #main
+
+
+    =javascript_include_tag :application
+    =yield :javascript_loaded
+    :javascript
+      $(function(){
+        #{yield :page_javascript}
+      });
