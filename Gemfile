@@ -30,6 +30,7 @@ gem 'simpleconfig', '~> 1.1.3', :require => 'simple_config'
 gem 'figaro'
 
 gem 'unicorn'
+gem 'tire'
 
 group :development do
   gem 'better_errors'
