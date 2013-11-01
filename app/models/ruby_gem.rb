@@ -35,7 +35,8 @@ class RubyGem
   
   mapping do
     indexes :id,            index: :not_analyzed
-    indexes :name,          type: 'string', index: :not_analyzed
+    indexes :name,          type: 'string'
+    indexes :original_name, type: 'string', index: :not_analyzed
     indexes :info,          type: 'string'
     indexes :licenses,      type: 'string'  ####
     
@@ -58,6 +59,7 @@ class RubyGem
   def to_indexed_json
     { id: id.to_s, 
       name: name, 
+      original_name: name,
       info: info, 
       licenses: licenses, 
       downloads: downloads, 
@@ -80,7 +82,7 @@ class RubyGem
       highlight :name, :info, :owners, :authors
       
       # Sort results
-      sort { by :name }
+      sort { by :original_name }
       
       # Results pagination / number of results per page
       page = (options[:page] || 1).to_i
