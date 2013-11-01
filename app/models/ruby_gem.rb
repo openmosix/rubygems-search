@@ -65,4 +65,24 @@ class RubyGem
     }.to_json
   end
   
+  def self.simple_search(search_terms, options={})
+    search = Tire.search RubyGem.tire.index.name, load:false do
+      # What we're looking for
+      query do
+        string search_terms, fields: [:name, :info, :owners, :authors]
+      end
+      
+      highlight :name, :info, :owners, :authors
+      
+      # Sort results
+      sort { by :name }
+      
+      # Results pagination / number of results per page
+      page = (options[:page] || 1).to_i
+      search_size = options[:per] || DEFAULT_SEARCH_SIZE
+      from (page -1) * search_size
+      size search_size
+    end
+  end
+  
 end
