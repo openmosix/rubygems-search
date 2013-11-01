@@ -87,6 +87,12 @@ class RubyGem
       search_size = options[:per] || DEFAULT_SEARCH_SIZE
       from (page -1) * search_size
       size search_size
+      
+      # Enable some facets
+      facet('global-licenses', :global => true) { terms :licenses, size: 6 }
+      facet('current-licenses') { terms :licenses, size: 6 }
+      facet('current-versions') { terms :version, size: 6 }
+      facet('current-built_at', nested: 'versions') { date 'built_at', interval: 'month'}
     end
   end
   
