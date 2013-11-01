@@ -2,31 +2,17 @@
   .panel.panel-default
     .panel-body
       .row
-        .col-md-4
+        .col-md-4.results
           =total_found(@gems)
-      
-      
-      %table.table.table-striped
-        %tr
-          %td.col-md-8 Name
-          %td.col-md-1 Version
-          %td Authors
-        - @gems.each do |gem|
-          %tr
-            %td
-              %b=link_to gem.name, gem_url(gem)
-              
-              -if gem.respond_to?(:highlight) && gem.highlight.present?
-                %br
-                %p.highlight
-                  =render partial:'gems/highlight', locals:{highlight: gem.highlight}
-            %td
-              =gem.version
-            %td
-              =gem.authors.is_a?(Array) ? gem.authors.join(', ') : gem.authors
-              
-
+      .row
+        
+        -if @gems.respond_to? :facets
+          .col-md-2
+            = render partial:'gems/facets', locals: {gems: @gems}  
           
-        %tr
-          %td{colspan: 2}
-            = paginate @gems
+        %div{class: (@gems.respond_to?(:facets) ? 'col-md-10' : 'col-md-12')}
+          = render partial:'gems/serp', locals: {gems: @gems}
+        
+          %tr
+            %td{colspan: 2}
+              = paginate @gems

@@ -1,0 +1,34 @@
+.sidebar-nav
+  .well
+    %ul.nav.nav-list
+      %li.nav-header 
+        %i.icon.icon-file
+        Licenses
+      
+      -@gems.facets['global-licenses']['terms'].each do |facet|
+        =render partial: 'gems/facet', locals: {facet: facet}
+            
+      %li.nav-header 
+        %i.icon.icon-file-alt
+        Licenses
+        %small (query)
+
+      -@gems.facets['current-licenses']['terms'].each do |facet|
+        =render partial: 'gems/facet', locals: {facet: facet}
+      
+      %li.nav-header 
+        %i.icon-copy
+        Versions
+      
+      -@gems.facets['current-versions']['terms'].each do |facet|
+        =render partial: 'gems/facet', locals: {facet: facet}
+      
+      %li.nav-header 
+        %i.icon-time
+        Dates
+      
+      -@gems.facets['current-built_at']['entries'].reverse[0..5].each do |facet|
+        %li
+          %a          
+            %b=Time.at(facet['time'] / 1000).strftime('%b %y')
+            %span.label.label-success=facet['count']
