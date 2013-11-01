@@ -1,19 +1,32 @@
 .content
   .panel.panel-default
     .panel-body
+      .row
+        .col-md-4
+          =total_found(@gems)
+      
+      
       %table.table.table-striped
         %tr
-          %td Name
-          %td Version
+          %td.col-md-8 Name
+          %td.col-md-1 Version
           %td Authors
         - @gems.each do |gem|
           %tr
             %td
               %b=link_to gem.name, gem_url(gem)
+              
+              -if gem.respond_to?(:highlight) && gem.highlight.present?
+                %br
+                %p.highlight
+                  =render partial:'gems/highlight', locals:{highlight: gem.highlight}
             %td
               =gem.version
             %td
-              =gem.authors
+              =gem.authors.is_a?(Array) ? gem.authors.join(', ') : gem.authors
+              
+
+          
         %tr
           %td{colspan: 2}
             = paginate @gems

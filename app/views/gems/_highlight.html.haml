@@ -1,0 +1,5 @@
+- %w(info owners authors).each do |field|
+  -if highlight.send(field)
+    %b #{field.capitalize}:
+    =highlight.send(field).join(' ... ').html_safe
+
