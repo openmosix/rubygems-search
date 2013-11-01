@@ -1,6 +1,7 @@
 class RubyGem
   include Mongoid::Document
   
+  #### Mongo
   store_in collection: "gems"
   
   field :name, type: String
@@ -25,5 +26,43 @@ class RubyGem
   embeds_many :owners
   
   index({ name: 1 }, { unique: true, background: true, drop_dups: true })
+  
+  #### Elastic Search
+  include Tire::Model::Search
+  include Tire::Model::Callbacks
+  
+  DEFAULT_SEARCH_SIZE = 25
+  
+  mapping do
+    indexes :id,            index: :not_analyzed
+    indexes :name,          type: 'string', index: :not_analyzed
+    indexes :info,          type: 'string'
+    indexes :licenses,      type: 'string'  ####
+    
+    indexes :owners,        type: 'string'
+    indexes :authors,       type: 'string'
+    indexes :downloads,     type: 'integer'
+    
+    indexes :runtime_dependencies,  type: 'string' ####
+    indexes :dev_dependencies,      type: 'string'
+    
+    indexes :version,         type: 'string', index: :not_analyzed
+    indexes :versions,      type: 'nested'
+  end
+  
+  def to_indexed_json
+    { id: id.to_s, 
+      name: name, 
+      info: info, 
+      licenses: licenses, 
+      downloads: downloads, 
+      authors: authors.try(:split, ','), 
+      owners:  owners ? owners.map{|o| o.email} : [],
+      runtime_dependencies: dependencies && dependencies.runtime ? dependencies.runtime.map{|e| e.name} : [],
+      dev_dependencies: dependencies && dependencies.development ? dependencies.development.map{|e| e.name} : [],
+      version: version,
+      versions: versions ? versions.map{|v| v.to_indexed} : []
+    }.to_json
+  end
   
 end

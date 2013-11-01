@@ -13,4 +13,8 @@ class Version
 
   embedded_in :ruby_gem
 
+  def to_indexed
+    {built_at: built_at, number: number, description: description, summary: summary}
+  end
+
 end
