@@ -47,7 +47,12 @@ class RubyGem
     indexes :dev_dependencies,      type: 'string'
     
     indexes :version,         type: 'string', index: :not_analyzed
-    indexes :versions,      type: 'nested'
+    indexes :versions,      type: 'nested', :properties => { 
+                                built_at: { :type => 'date' }, 
+                                number: { :type => 'string' },
+                                description: { type: 'string' },
+                                summary: { type: 'string' }
+                            }
   end
   
   def to_indexed_json
