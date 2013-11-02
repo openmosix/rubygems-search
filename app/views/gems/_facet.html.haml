@@ -1,4 +1,2 @@
-%li
-  %a          
-    %b=facet['term']
-    %span.label.label-success=facet['count']
+%li  
+  = link_to "<b>#{facet['term']}</b> <span class='label label-success'>#{facet['count']}</span>".html_safe, replace_search_param(params, search_option, facet['term'])

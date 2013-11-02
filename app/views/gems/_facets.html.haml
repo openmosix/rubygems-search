@@ -6,7 +6,7 @@
         Licenses
       
       -@gems.facets['global-licenses']['terms'].each do |facet|
-        =render partial: 'gems/facet', locals: {facet: facet}
+        =render partial: 'gems/facet', locals: {facet: facet, search_option:'licenses'}
             
       %li.nav-header 
         %i.icon.icon-file-alt
@@ -14,14 +14,14 @@
         %small (query)
 
       -@gems.facets['current-licenses']['terms'].each do |facet|
-        =render partial: 'gems/facet', locals: {facet: facet}
+        =render partial: 'gems/facet', locals: {facet: facet, search_option:'licenses'}
       
       %li.nav-header 
         %i.icon-copy
         Versions
       
       -@gems.facets['current-versions']['terms'].each do |facet|
-        =render partial: 'gems/facet', locals: {facet: facet}
+        =render partial: 'gems/facet', locals: {facet: facet, search_option:'version'}
       
       %li.nav-header 
         %i.icon-time
