@@ -3,13 +3,12 @@
     %td.col-md-8 Name
     %td.col-md-1 Version
     %td Authors
-  - gems.each do |gem|
+  - @gems.each do |gem|
     %tr
       %td
         %b=link_to gem.name, gem_url(gem)
         
         -if gem.respond_to?(:highlight) && gem.highlight.present?
-          %br
           %p.highlight
             =render partial:'gems/highlight', locals:{highlight: gem.highlight}
       %td
