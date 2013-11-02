@@ -1,5 +1,5 @@
-- %w(info owners authors).each do |field|
+- %w(name info owners authors licenses version runtime_dependencies dev_dependencies).each do |field|
   -if highlight.send(field)
     %b #{field.capitalize}:
     =highlight.send(field).join(' ... ').html_safe
-
+    %br
