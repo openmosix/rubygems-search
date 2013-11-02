@@ -6,12 +6,12 @@
           =total_found(@gems)
       .row
         
-        -if @gems.respond_to? :facets
+        -if @gems.respond_to?(:facets) && @gems.facets.present?
           .col-md-2
-            = render partial:'gems/facets', locals: {gems: @gems}  
+            = render partial:'gems/facets'
           
-        %div{class: (@gems.respond_to?(:facets) ? 'col-md-10' : 'col-md-12')}
-          = render partial:'gems/serp', locals: {gems: @gems}
+        %div{class: (@gems.respond_to?(:facets) && @gems.facets.present? ? 'col-md-10' : 'col-md-12')}
+          = render partial:'gems/serp'
         
           %tr
             %td{colspan: 2}
