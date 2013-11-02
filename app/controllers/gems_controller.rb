@@ -9,9 +9,9 @@ class GemsController < ApplicationController
   end
   
   def search
-    redirect_to "/" and return unless params[:search].present?
+    redirect_to "/" and return unless params[:search].present? && params[:search][:q].present?
     
-    search = RubyGem.simple_search(params[:search], page: params[:page])
+    search = RubyGem.simple_search(params[:search][:q], page: params[:page], facets: false)
     @gems = search.results
         
     render 'index'

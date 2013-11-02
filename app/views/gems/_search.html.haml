@@ -1,6 +1,6 @@
 =form_tag(search_path, id: 'new_search', class: 'navbar-form navbar-left', method: 'get') do
   .form-group
-    %input.form-control{autofocus: "", placeholder: "Search gems...", type: "text", id: 'gems_search', name: 'search', value: params[:search]}
+    %input.form-control{autofocus: "", placeholder: "Search gems...", type: "text", id: 'gems_search', name: 'search[q]', value: original_search(params)}
     
   %button.btn.btn-danger{type: "submit"}
     Search
