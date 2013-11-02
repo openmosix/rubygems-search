@@ -1,6 +1,10 @@
 .content
   .panel.panel-default
     .panel-body
+      -if @show_advanced
+        .row
+          .col-md-12
+            =render partial:'gems/advanced', locals: {params: params}
       .row
         .col-md-4.results
           =total_found(@gems)
