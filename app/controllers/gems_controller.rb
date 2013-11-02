@@ -17,4 +17,14 @@ class GemsController < ApplicationController
     render 'index'
   end
   
+  def advanced_search
+    params[:search] ||={}
+    @show_advanced = true
+    
+    search = RubyGem.advanced_search(params[:search], page: params[:page])
+    @gems = search.results
+    
+    render 'index'
+  end
+  
 end
