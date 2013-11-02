@@ -98,4 +98,40 @@ class RubyGem
     end
   end
   
+  def self.advanced_search(search_conditions, options={})
+    fields = [:name, :info, :owners, :authors, :licenses, :version, :runtime_dependencies, :dev_dependencies]
+    
+    search = Tire.search RubyGem.tire.index.name, load:false do
+      
+      # What we're looking for
+      query do
+        boolean do
+          fields.each do |field|
+            must { string search_conditions[field], :default_operator => 'AND', :fields => [field] } if search_conditions[field].present?
+          end
+        end
+      end
+      
+      highlight *fields
+      
+      # Sort results
+      sort { by :original_name }
+      
+      # Results pagination / number of results per page
+      page = (options[:page] || 1).to_i
+      search_size = options[:per] || DEFAULT_SEARCH_SIZE
+      from (page -1) * search_size
+      size search_size
+      
+      # Enable some facets
+      if search_conditions['facets']
+        facet('global-licenses', :global => true) { terms :licenses, size: 6 }
+        facet('current-licenses') { terms :licenses, size: 6 }
+        facet('current-versions') { terms :version, size: 6 }
+        facet('current-built_at', nested: 'versions') { date 'built_at', interval: 'month'}
+      end
+      
+    end
+  end
+  
 end
