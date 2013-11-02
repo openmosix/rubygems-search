@@ -11,5 +11,6 @@
   / Collect the nav links, forms, and other content for toggling
   .collapse.navbar-collapse.navbar-ex8-collapse
     %ul.nav.navbar-nav.navbar-right
+      %li=link_to('Advanced', advanced_path)
       %li
         =render partial: 'gems/search'

@@ -5,5 +5,7 @@ RubygemsSearch::Application.routes.draw do
   
   get "/search" => 'gems#search'
   
+  get "/advanced" => 'gems#advanced_search'
+  
   root "gems#index"
 end
