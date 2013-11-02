@@ -1,0 +1,66 @@
+.panel-group#accordion
+  .panel.panel-default
+    .panel-heading
+      .panel-title
+        %h4
+          %a{data:{toggle: "collapse", parent:"#accordion"}, href: "#collapseOne"} Advanced Search
+
+    #collapseOne.panel-collapse.collapse.in
+      .panel-body
+      
+        .well
+          %form{role: "form", action: advanced_path, method: 'get'}
+            .row
+              .col-md-4
+                .form-group
+                  %label{for: "gem-name"} Name
+                  %input#gem-name.form-control{placeholder: "Search in 'gem name'", type: "text", name: 'search[name]', value: params[:search][:name]}
+        
+              .col-md-4
+                .form-group
+                  %label{for: "gem-info"} Info
+                  %input#gem-info.form-control{placeholder: "Search in 'info'", type: "text", name: 'search[info]', value: params[:search][:info]}
+
+              .col-md-2
+                .form-group
+                  %label{for: "gem-license"} License
+                  %input#gem-license.form-control{placeholder: "Search in 'licenses'", type: "text", name: 'search[licenses]', value: params[:search][:licenses]}
+
+              .col-md-2
+                .form-group
+                  %label{for: "gem-dev-dependency"} Version
+                  %input#gem-dev-dependency.form-control{placeholder: "Search in 'version'", type: "text", name: 'search[version]', value: params[:search][:version]}
+    
+
+            .row
+  
+              .col-md-6
+                .form-group
+                  %label{for: "gem-owners"} Owners
+                  %input#gem-owners.form-control{placeholder: "Search in 'owners'", type: "text", name: 'search[owners]', value: params[:search][:owners]}
+
+              .col-md-6
+                .form-group
+                  %label{for: "gem-authors"} Authors
+                  %input#gem-authors.form-control{placeholder: "Search in 'authors'", type: "text", name: 'search[authors]', value: params[:search][:authors]}
+
+            .row
+              .col-md-6
+                .form-group
+                  %label{for: "gem-runtime-dependency"} Runtime dependencies
+                  %input#gem-runtime-dependency.form-control{placeholder: "Search in 'runtime dependencies'", type: "text", name: 'search[runtime_dependencies]', value: params[:search][:runtime_dependencies]}
+
+              .col-md-6
+                .form-group
+                  %label{for: "gem-dev-dependency"} Dev dependencies
+                  %input#gem-dev-dependency.form-control{placeholder: "Search in 'dev dependencies'", type: "text", name: 'search[dev_dependencies]', value: params[:search][:dev_dependencies]}
+
+            .row
+              .col-md-6
+                .checkbox
+                  %label
+                    %input{type: "checkbox", value: '1', name: 'search[facets]', checked: params[:search][:facets]}
+                    Facets?
+    
+      
+            %button.btn.btn-danger{type: "submit"} Submit
